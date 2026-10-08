@@ -1,10 +1,5 @@
 /**
- * CYBERTYPER - Shared Header Navigation & Dropdown Controller
- * Features:
- * - Mobile drawer toggle with focus-trapping & background inertness
- * - Fully accessible ARIA dropdown with ArrowUp / ArrowDown navigation
- * - matchMedia listener (replaces heavy resize events)
- * - Safe integration with Web Audio API sound feedback
+ * CYBERTYPER - Shared Header Navigation & Dropdown Controller (Fully Fixed)
  */
 document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.getElementById('cyberNavToggle');
@@ -14,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const desktopMedia = window.matchMedia('(min-width: 901px)');
 
-  // Helper: Play SFX if defined in main script
   function playClickSfx(freq = 600) {
     if (typeof window.playTone === 'function' && !window.isMuted) {
       window.playTone(freq, 0.04, 'sine', 0.04);
@@ -34,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isOpen) {
       playClickSfx(720);
-      // First interactive element par focus shift
       const firstFocusable = mainNav.querySelector('a, button');
       if (firstFocusable) firstFocusable.focus();
     } else {
@@ -75,28 +68,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* --------------------------------------------------------------------------
-     ACCESSIBILITY: KEYBOARD NAVIGATION (ESC, TAB-TRAP, ARROWS)
+     KEYBOARD ACCESSIBILITY (ESC, TAB-TRAP, ARROWS)
      -------------------------------------------------------------------------- */
   document.addEventListener('keydown', (e) => {
     const isNavOpen = mainNav && mainNav.classList.contains('nav-open');
     const isDropdownOpen = gamesDropdown && gamesDropdown.classList.contains('dropdown-open');
 
-    // 1. ESC Key: Close whichever menu is open
+    // 1. ESC Key
     if (e.key === 'Escape') {
       if (isDropdownOpen) {
         closeGamesDropdown();
-        gamesDropdownTrigger.focus();
+        if (gamesDropdownTrigger) gamesDropdownTrigger.focus();
       }
       if (isNavOpen && !desktopMedia.matches) {
         setNavState(false);
-        navToggle.focus();
+        if (navToggle) navToggle.focus();
       }
       return;
     }
 
-    // 2. Tab Trap inside Mobile Navigation
+    // 2. Focus Trap inside Mobile Drawer
     if (e.key === 'Tab' && isNavOpen && !desktopMedia.matches) {
-      const focusables = Array.from(mainNav.querySelectorAll('a, button:not([disabled])'));
+      const focusables = Array.from(
+        mainNav.querySelectorAll('a[href], button:not([disabled])')
+      ).filter(el => el.offsetParent !== null); // Filter visible elements
+
       if (focusables.length === 0) return;
 
       const firstEl = focusables[0];
@@ -111,18 +107,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // 3. Arrow Down / Up Navigation inside Games Dropdown
+    // 3. Arrow Navigation in Dropdown (Fixed initial index)
     if (isDropdownOpen && gamesDropdown) {
       const dropdownLinks = Array.from(gamesDropdown.querySelectorAll('.cyber-dropdown-link'));
+      if (dropdownLinks.length === 0) return;
+
       const currentIndex = dropdownLinks.indexOf(document.activeElement);
 
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        const nextIndex = (currentIndex + 1) % dropdownLinks.length;
+        const nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % dropdownLinks.length;
         dropdownLinks[nextIndex].focus();
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        const prevIndex = (currentIndex - 1 + dropdownLinks.length) % dropdownLinks.length;
+        const prevIndex = currentIndex <= 0 ? dropdownLinks.length - 1 : currentIndex - 1;
         dropdownLinks[prevIndex].focus();
       }
     }
@@ -145,12 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* --------------------------------------------------------------------------
-     LINK SELECTION & SCREEN-RESIZE HANDLING
+     PAGE NAVIGATION LINKS (EXCLUDES DROPDOWN BUTTON TRIGGER)
      -------------------------------------------------------------------------- */
-  // Mobile drawer me link click hone par close karna
   if (mainNav) {
-    const navLinks = mainNav.querySelectorAll('a:not(#cyberGamesTrigger)');
-    navLinks.forEach((link) => {
+    const pageNavLinks = mainNav.querySelectorAll('a[href]');
+    pageNavLinks.forEach((link) => {
       link.addEventListener('click', () => {
         if (!desktopMedia.matches) {
           setNavState(false);
@@ -159,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Optimized viewport listener via matchMedia (no window resize lag)
+  /* --------------------------------------------------------------------------
+     VIEWPORT MEDIA LISTENER
+     -------------------------------------------------------------------------- */
   desktopMedia.addEventListener('change', (e) => {
     if (e.matches && mainNav && mainNav.classList.contains('nav-open')) {
       setNavState(false);
