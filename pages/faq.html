@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions // CYBERTYPER</title>
+  <meta name="description" content="Frequently Asked Questions about CYBERTYPER - free online typing games, WPM metrics, and how to improve typing speed.">
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- FAQPage JSON-LD Structured Data for SEO (UPDATED WITH NEW QUESTIONS) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are these typing games free to play?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! All our free online typing games are 100% free. You do not need to create an account or sign up to play."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I improve my typing speed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The best way to improve typing speed is daily practice. We recommend starting with our online typing test to check your current speed, and then playing our arcade typing games every day to get faster."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a WPM test?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "WPM stands for Words Per Minute. Our WPM test tracks exactly how many words you can type correctly in one minute. It’s a great way to measure your progress!"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will these games help with my accuracy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Games like our falling words typing game and asteroid defense force you to focus on the right keys, which naturally improves your typing accuracy over time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which devices and browsers are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CYBERTYPER works on all modern web browsers across desktop PCs, laptops, tablets, and smartphones with full on-screen keyboard support."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Speed Typing Test calculate WPM and accuracy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "WPM is calculated using standard typing formula: (Total Characters Typed / 5) divided by elapsed minutes. Accuracy is calculated as (Correct Keystrokes / Total Keystrokes) * 100%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you collect my personal data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. CYBERTYPER collects zero personal data. All high scores and sound settings remain privately in your browser's localStorage."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    .faq-container {
+      max-width: 860px;
+      margin: 0 auto 3.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .faq-hero {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .faq-hero h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+
+    .faq-hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    /* Live Search Bar */
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .faq-search-input {
+      width: 100%;
+      background: rgba(14, 20, 42, 0.9);
+      border: 2px solid rgba(0, 240, 255, 0.35);
+      border-radius: 14px;
+      padding: 1.1rem 1.4rem 1.1rem 3.2rem;
+      color: #ffffff;
+      font-size: 1.15rem;
+      font-family: inherit;
+      outline: none;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .faq-search-input:focus {
+      border-color: var(--cyan-glow);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
+    }
+
+    .search-icon-badge {
+      position: absolute;
+      left: 1.15rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      pointer-events: none;
+      color: var(--cyan-glow);
+    }
+
+    /* Categories & Accordion */
+    .faq-category {
+      margin-bottom: 2.25rem;
+    }
+
+    .category-heading {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--cyan-glow);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      padding: 0.3rem 0.85rem;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 8px;
+    }
+
+    .category-heading.cat-games {
+      color: var(--magenta-glow);
+      background: rgba(255, 0, 127, 0.1);
+      border-color: rgba(255, 0, 127, 0.3);
+    }
+
+    .category-heading.cat-scores {
+      color: var(--gold-glow);
+      background: rgba(255, 215, 0, 0.1);
+      border-color: rgba(255, 215, 0, 0.3);
+    }
+
+    .category-heading.cat-tech {
+      color: var(--emerald-glow);
+      background: rgba(0, 255, 136, 0.1);
+      border-color: rgba(0, 255, 136, 0.3);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .faq-item {
+      background: rgba(14, 20, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: var(--transition-smooth);
+      backdrop-filter: blur(10px);
+    }
+
+    .faq-item:hover {
+      border-color: rgba(0, 240, 255, 0.35);
+    }
+
+    .faq-item.active {
+      border-color: var(--cyan-glow);
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.18);
+    }
+
+    .faq-question-btn {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: 1.15rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      color: #ffffff;
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      font-weight: 700;
+      font-family: inherit;
+    }
+
+    .faq-icon-indicator {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid var(--cyan-glow);
+      color: var(--cyan-glow);
+      font-size: 1.1rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    .faq-item.active .faq-icon-indicator {
+      transform: rotate(45deg);
+      border-color: var(--magenta-glow);
+      color: var(--magenta-glow);
+      background: rgba(255, 0, 127, 0.15);
+    }
+
+    .faq-answer-collapse {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+    }
+
+    .faq-answer-body {
+      padding: 0 1.4rem 1.25rem;
+      color: #d1dced;
+      font-size: clamp(0.98rem, 1.4vw, 1.12rem);
+      line-height: 1.75;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 0.85rem;
+    }
+
+    .faq-answer-body ol, .faq-answer-body ul {
+      padding-left: 1.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .faq-answer-body li {
+      margin-bottom: 0.35rem;
+    }
+
+    /* No results alert */
+    .no-results-box {
+      display: none;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: rgba(14, 20, 42, 0.7);
+      border: 1px dashed rgba(255, 0, 127, 0.4);
+      border-radius: 14px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    /* Bottom Contact Prompt Box */
+    .support-card {
+      margin-top: 3rem;
+      background: linear-gradient(135deg, rgba(14, 22, 50, 0.9), rgba(20, 12, 35, 0.9));
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 16px;
+      padding: 1.85rem;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.12);
+    }
+
+    .support-card h3 {
+      font-size: 1.45rem;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .support-card p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .support-card .support-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas Starfield -->
+  <canvas id="starsCanvas" class="stars-bg"></canvas>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="site-header">
+      <a href="../index.html" class="brand-wrapper">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <div class="brand-title">CYBERTYPER</div>
+          <div class="brand-subtitle">Space Typing Arcade</div>
+        </div>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav id="cyberMainNav" class="cyber-nav" aria-label="Main Navigation">
+        <div class="cyber-nav-item">
+          <a href="../index.html" class="cyber-nav-link">Home</a>
+        </div>
+        <div class="cyber-nav-item cyber-dropdown" id="cyberGamesDropdown">
+          <button class="cyber-nav-link" id="cyberGamesTrigger" aria-expanded="false" aria-haspopup="true">
+            Games <span class="dropdown-arrow">▼</span>
+          </button>
+          <ul class="cyber-dropdown-menu" aria-label="Games Submenu">
+            <li class="cyber-dropdown-item"><a href="../games/speed-test.html" class="cyber-dropdown-link">⚡ Speed Typing Test</a></li>
+            <li class="cyber-dropdown-item"><a href="../games/falling-words.html" class="cyber-dropdown-link">🌧️ Falling Words</a></li>
+            <li class="cyber-dropdown-item"><a href="../games/typing-race.html" class="cyber-dropdown-link">🏎️ Typing Race vs Bot</a></li>
+            <li class="cyber-dropdown-item"><a href="../games/asteroid-game.html" class="cyber-dropdown-link">☄️ Falling Asteroids</a></li>
+          </ul>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="help.html" class="cyber-nav-link">Help</a>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="faq.html" class="cyber-nav-link active" aria-current="page">FAQ</a>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="about.html" class="cyber-nav-link">About</a>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="terms.html" class="cyber-nav-link">Terms</a>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="contact.html" class="cyber-nav-link">Contact</a>
+        </div>
+      </nav>
+
+      <!-- Actions: Sound + Hamburger -->
+      <div class="header-actions">
+        <button id="soundToggle" class="sound-toggle-btn" aria-label="Toggle Sound" title="Sound Mute/Unmute">
+          <span id="soundIcon">🔊</span>
+        </button>
+        <button id="cyberNavToggle" class="cyber-hamburger" aria-label="Toggle Menu" aria-expanded="false" aria-controls="cyberMainNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="faq-container">
+      <div class="faq-hero">
+        <h1>Frequently Asked <span class="glow-cyan">Questions</span></h1>
+        <p>Find instant answers to gameplay rules, typing metrics, audio synthesis, and browser performance.</p>
+      </div>
+
+      <!-- Live Search Box -->
+      <div class="search-wrapper">
+        <span class="search-icon-badge">🔍</span>
+        <input 
+          type="text" 
+          id="faqSearchInput" 
+          class="faq-search-input" 
+          placeholder="Filter questions by keywords (e.g. WPM, lives, sound, lag)..."
+          autocomplete="off"
+        >
+      </div>
+
+      <div id="noResults" class="no-results-box">
+        <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🛰️</div>
+        <h3>No matching questions found</h3>
+        <p>Try searching with another keyword or browse the categories below.</p>
+      </div>
+
+      <!-- Category 1: General -->
+      <section class="faq-category">
+        <div class="category-heading">✦ General ✦</div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>What is CYBERTYPER?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                CYBERTYPER is a modern neon space-themed browser arcade dedicated to making typing training genuinely fun. Engineered with pure client-side web standards, it features benchmark speed testing, arcade word-defense games, real-time racing vs AI bots, and orbital asteroid demolition with dynamic sound effects.
+              </div>
+            </div>
+          </div>
+
+          <!-- NEW SEO QUESTION ADDED HERE -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>Are these typing games free to play?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                Yes! All our <strong>free online typing games</strong> are 100% free. You do not need to create an account or sign up to play.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>Which devices and browsers are supported?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                All modern desktop and mobile browsers supporting modern HTML5 canvas and Web Audio are fully supported (Google Chrome, Microsoft Edge, Mozilla Firefox, Apple Safari, Brave, and Opera) on Windows, macOS, Linux, Android, and iOS.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category 2: Games -->
+      <section class="faq-category">
+        <div class="category-heading cat-games">✦ Games & Mechanics ✦</div>
+        <div class="faq-list">
+          
+          <!-- NEW SEO QUESTION ADDED HERE -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>What is a WPM test?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                WPM stands for Words Per Minute. Our <strong>WPM test</strong> tracks exactly how many words you can type correctly in one minute. It’s a great way to measure your progress!
+              </div>
+            </div>
+          </div>
+
+          <!-- REPLACED SPEED QUESTION WITH NEW SEO TEXT -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>How can I improve my typing speed?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                The best way to <strong>improve typing speed</strong> is daily practice. We recommend starting with our <strong>online typing test</strong> to check your current speed, and then playing our <strong>arcade typing games</strong> every day to get faster.
+              </div>
+            </div>
+          </div>
+
+          <!-- NEW SEO QUESTION ADDED HERE -->
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>Will these games help with my accuracy?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                Yes! Games like our <strong>falling words typing game</strong> and asteroid defense force you to focus on the right keys, which naturally improves your <strong>typing accuracy</strong> over time.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>How does the Speed Typing Test calculate WPM and accuracy?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                Typing industry standards define a standard word as exactly 5 keystrokes (including letters, spaces, and punctuation). Your live WPM is calculated as <code>(Characters Typed / 5) / (Elapsed Minutes)</code>. Accuracy represents <code>(Correct Characters / Total Keystrokes) * 100%</code>.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>How does Falling Words work and how many lives do I get?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                Words drop from orbit toward your neon shield line. Typing the initial letter locks onto the word, and typing remaining letters vaporizes it. You start with 3 shields (lives). If a word hits the bottom barrier, you lose a shield. Losing all 3 shields ends the game.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>How does Typing Race vs Bot work? How fast is the bot?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                You race side-by-side along an animated track against an autonomous AI competitor clocked at a steady 40 WPM pace. Typing accurately accelerates your racecar across the finish line to claim top spots on the local leaderboard.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>How does Falling Asteroids work? Why do bigger words make bigger asteroids?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                In Falling Asteroids, asteroid size is directly proportional to word length:
+                <ul>
+                  <li><strong>Short words (2-4 letters):</strong> Small, rapid meteors.</li>
+                  <li><strong>Medium words (5-7 letters):</strong> Mid-sized balanced rocks.</li>
+                  <li><strong>Long words (8+ letters):</strong> Giant, high-threat asteroids that award massive score multipliers upon destruction.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>What happens when an asteroid hits my ship in Falling Asteroids?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                There are <strong>zero shields</strong> in Falling Asteroids. If any asteroid breaches your perimeter or collides with your ship, it results in instantaneous catastrophic hull destruction, screen shake, and Game Over.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category 3: Scores and Data -->
+      <section class="faq-category">
+        <div class="category-heading cat-scores">✦ Scores and Data ✦</div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>Where are my high scores and leaderboard saved?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                All records, high scores, and leaderboard rankings are saved locally in your browser's private <code>localStorage</code> database under your browser profile.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>Why did my score or leaderboard disappear?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                Since scores are stored client-side in localStorage, they will reset if you:
+                <ul>
+                  <li>Clear your browser's cookies or site data;</li>
+                  <li>Switch to an Incognito / Private browsing window;</li>
+                  <li>Play from a different web browser or different device.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>Do you collect my personal data?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                No. CYBERTYPER does not collect, harvest, track, or sell any personal information. All gameplay state remains isolated on your device.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category 4: Technical -->
+      <section class="faq-category">
+        <div class="category-heading cat-tech">✦ Technical & Troubleshooting ✦</div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>Why is there no sound?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                1. Check the speaker icon in the top header (make sure it shows 🔊, not 🔇).<br>
+                2. Modern web browsers block audio autoplay until the user interacts with the page. Simply click anywhere on the page or press any key to unlock the Web Audio synthesizer.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>The game is lagging or slow, what should I do?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                CYBERTYPER uses hardware-accelerated canvas rendering. If experiencing frame drops, ensure "Hardware Acceleration" is turned ON in your browser settings, close unnecessary background tabs, or check if battery-saver mode is throttling your GPU.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>Can I play on mobile?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                Yes! Every game page features an on-screen typing input box below the game canvas. Tap the input box or canvas to bring up your phone's virtual keyboard.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn" aria-expanded="false">
+              <span>I found a bug or want to suggest a feature, how do I contact you?</span>
+              <span class="faq-icon-indicator">+</span>
+            </button>
+            <div class="faq-answer-collapse">
+              <div class="faq-answer-body">
+                We love hearing from fellow typists! You can send bug reports or suggestions via our <a href="contact.html" style="color:var(--cyan-glow);font-weight:700;">Contact Page</a> or write directly to <a href="mailto:arpitbhai811@gmail.com" style="color:var(--cyan-glow);font-weight:700;">arpitbhai811@gmail.com</a>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Support Box -->
+      <div class="support-card">
+        <h3>Still Have Questions?</h3>
+        <p>Our cosmic flight control is ready to assist with any feedback or questions.</p>
+        <div class="support-links">
+          <a href="contact.html" class="btn-neon">
+            <span>✉️</span> Contact Us
+          </a>
+          <a href="../index.html" class="btn-neon btn-magenta">
+            <span>←</span> Back to Home
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <ul class="footer-nav">
+        <li><a href="help.html">Help</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="terms.html">Terms and Conditions</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="footer-copy">© 2026 CYBERTYPER • Built with Modern Web Standards & Web Audio API</div>
+    </footer>
+  </div>
+
+  <script src="../js/nav.js"></script>
+  <script>
+    // Accordion controller: smooth expand/collapse with aria support
+    document.querySelectorAll('.faq-question-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const collapse = item.querySelector('.faq-answer-collapse');
+        const isOpen = item.classList.contains('active');
+
+        // Optional: close other open items in the same list
+        document.querySelectorAll('.faq-item.active').forEach(other => {
+          if (other !== item) {
+            other.classList.remove('active');
+            other.querySelector('.faq-question-btn').setAttribute('aria-expanded', 'false');
+            other.querySelector('.faq-answer-collapse').style.maxHeight = null;
+          }
+        });
+
+        if (isOpen) {
+          item.classList.remove('active');
+          btn.setAttribute('aria-expanded', 'false');
+          collapse.style.maxHeight = null;
+        } else {
+          item.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+          collapse.style.maxHeight = collapse.scrollHeight + "px";
+        }
+      });
+    });
+
+    // Live Search Filter
+    const searchInput = document.getElementById('faqSearchInput');
+    const faqItems = document.querySelectorAll('.faq-item');
+    const categories = document.querySelectorAll('.faq-category');
+    const noResults = document.getElementById('noResults');
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      let matchCount = 0;
+
+      faqItems.forEach(item => {
+        const questionText = item.querySelector('.faq-question-btn').textContent.toLowerCase();
+        const answerText = item.querySelector('.faq-answer-body').textContent.toLowerCase();
+        if (questionText.includes(query) || answerText.includes(query)) {
+          item.style.display = '';
+          matchCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Hide category headings if all their items are hidden
+      categories.forEach(cat => {
+        const visibleItems = cat.querySelectorAll('.faq-item:not([style*="display: none"])');
+        cat.style.display = visibleItems.length > 0 ? '' : 'none';
+      });
+
+      noResults.style.display = matchCount === 0 ? 'block' : 'none';
+    });
+
+    // Shared Sound Controller & Starfield
+    window.audioCtx = null;
+    window.isMuted = localStorage.getItem('typing_site_sound_muted') === 'true';
+
+    const soundToggle = document.getElementById('soundToggle');
+    const soundIcon = document.getElementById('soundIcon');
+
+    function updateSoundUI() {
+      if (window.isMuted) {
+        soundIcon.textContent = '🔇';
+        soundToggle.classList.add('muted');
+      } else {
+        soundIcon.textContent = '🔊';
+        soundToggle.classList.remove('muted');
+      }
+    }
+    updateSoundUI();
+
+    soundToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.isMuted = !window.isMuted;
+      localStorage.setItem('typing_site_sound_muted', window.isMuted);
+      updateSoundUI();
+    });
+
+    // Starfield Canvas
+    const canvas = document.getElementById('starsCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const STAR_COUNT = 85;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5 + 0.5,
+          speed: Math.random() * 0.35 + 0.1,
+          color: Math.random() > 0.4 ? '#00f0ff' : '#ff007f',
+          alpha: Math.random() * 0.7 + 0.3,
+          flicker: Math.random() * 0.02 + 0.01
+        });
+      }
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let s of stars) {
+        s.y += s.speed;
+        if (s.y > canvas.height) {
+          s.y = 0;
+          s.x = Math.random() * canvas.width;
+        }
+        s.alpha += Math.sin(Date.now() * 0.003 + s.x) * s.flicker;
+        const clampedAlpha = Math.max(0.15, Math.min(0.9, s.alpha));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = clampedAlpha;
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+      }
+      requestAnimationFrame(animateStars);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    animateStars();
+  </script>
+</body>
+</html>

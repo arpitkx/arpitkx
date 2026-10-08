@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us // CYBERTYPER</title>
+  <meta name="description" content="About CYBERTYPER - Where typing meets the cosmos. Discover our mission, 100% free arcade philosophy, and future roadmap.">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="About Us // CYBERTYPER">
+  <meta property="og:description" content="Where typing meets the cosmos. Free arcade-style typing training with zero accounts and client-side audio.">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .about-container {
+      max-width: 980px;
+      margin: 0 auto 3.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero Section */
+    .about-hero {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      padding: 1.5rem 0;
+    }
+
+    .about-hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.85rem;
+    }
+
+    .about-hero p {
+      font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+      color: var(--cyan-glow);
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 1.85rem;
+    }
+
+    /* Scroll Animation Base */
+    .reveal-card {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 3rem;
+    }
+
+    .reveal-card.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-card {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* Story & Philosophy Glass Card */
+    .glass-section {
+      background: rgba(14, 20, 42, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      border-radius: 18px;
+      padding: clamp(1.75rem, 3.5vw, 2.5rem);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 25px rgba(0, 240, 255, 0.1);
+      backdrop-filter: blur(14px);
+    }
+
+    .glass-section h2 {
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.5rem;
+    }
+
+    .glass-section p {
+      font-size: clamp(1.05rem, 1.5vw, 1.15rem);
+      line-height: 1.8;
+      color: #d8e2f2;
+      margin-bottom: 1rem;
+    }
+
+    /* Animated Stats Strip */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin: 3.5rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .stats-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-metric-card {
+      background: rgba(12, 18, 40, 0.9);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 16px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .stat-metric-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--stat-glow, var(--cyan-glow));
+      box-shadow: 0 0 10px var(--stat-glow, var(--cyan-glow));
+    }
+
+    .stat-metric-card:nth-child(1) { --stat-glow: var(--cyan-glow); }
+    .stat-metric-card:nth-child(2) { --stat-glow: var(--emerald-glow); }
+    .stat-metric-card:nth-child(3) { --stat-glow: var(--magenta-glow); }
+    .stat-metric-card:nth-child(4) { --stat-glow: var(--gold-glow); }
+
+    .stat-num-val {
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: #ffffff;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-num-lbl {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* What We Offer - 4 Game Cards Grid */
+    .arcade-showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 720px) {
+      .arcade-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .showcase-card {
+      background: rgba(14, 20, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: var(--transition-smooth);
+    }
+
+    .showcase-card:hover {
+      border-color: var(--card-highlight, var(--cyan-glow));
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .showcase-header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .showcase-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .showcase-card h3 {
+      font-size: 1.25rem;
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    .showcase-card p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Why CYBERTYPER Highlights */
+    .why-cyber-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .why-item {
+      background: rgba(10, 15, 34, 0.8);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .why-item-icon {
+      font-size: 1.85rem;
+    }
+
+    .why-item h4 {
+      font-size: 1.15rem;
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    .why-item p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Meet The Creator Card */
+    .creator-card {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 680px) {
+      .creator-card {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    .creator-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan-glow), var(--magenta-glow));
+      padding: 3px;
+      flex-shrink: 0;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.35);
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #080d20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+    }
+
+    .creator-info h3 {
+      font-size: 1.5rem;
+      color: #ffffff;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+
+    .creator-role {
+      font-size: 0.95rem;
+      color: var(--cyan-glow);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Roadmap List */
+    .roadmap-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    .roadmap-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1.15rem;
+      background: rgba(10, 15, 34, 0.8);
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      border-radius: 10px;
+      font-size: 1.05rem;
+      color: #e2e8f5;
+    }
+
+    .roadmap-status {
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(255, 215, 0, 0.15);
+      border: 1px solid var(--gold-glow);
+      color: var(--gold-glow);
+      margin-left: auto;
+    }
+
+    /* Call To Action Box */
+    .cta-card {
+      margin-top: 4rem;
+      background: linear-gradient(135deg, rgba(14, 24, 54, 0.95), rgba(28, 12, 42, 0.95));
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 20px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.18);
+    }
+
+    .cta-card h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 900;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+    }
+
+    .cta-card p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 1.85rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas Starfield -->
+  <canvas id="starsCanvas" class="stars-bg"></canvas>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="site-header">
+      <a href="../index.html" class="brand-wrapper">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <div class="brand-title">CYBERTYPER</div>
+          <div class="brand-subtitle">Space Typing Arcade</div>
+        </div>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav id="cyberMainNav" class="cyber-nav" aria-label="Main Navigation">
+        <div class="cyber-nav-item">
+          <a href="../index.html" class="cyber-nav-link">Home</a>
+        </div>
+        <div class="cyber-nav-item cyber-dropdown" id="cyberGamesDropdown">
+          <button class="cyber-nav-link" id="cyberGamesTrigger" aria-expanded="false" aria-haspopup="true">
+            Games <span class="dropdown-arrow">▼</span>
+          </button>
+          <ul class="cyber-dropdown-menu" aria-label="Games Submenu">
+            <li class="cyber-dropdown-item"><a href="../games/speed-test.html" class="cyber-dropdown-link">⚡ Speed Typing Test</a></li>
+            <li class="cyber-dropdown-item"><a href="../games/falling-words.html" class="cyber-dropdown-link">🌧️ Falling Words</a></li>
+            <li class="cyber-dropdown-item"><a href="../games/typing-race.html" class="cyber-dropdown-link">🏎️ Typing Race vs Bot</a></li>
+            <li class="cyber-dropdown-item"><a href="../games/asteroid-game.html" class="cyber-dropdown-link">☄️ Falling Asteroids</a></li>
+          </ul>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="help.html" class="cyber-nav-link">Help</a>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="faq.html" class="cyber-nav-link">FAQ</a>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="about.html" class="cyber-nav-link active" aria-current="page">About</a>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="terms.html" class="cyber-nav-link">Terms</a>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="contact.html" class="cyber-nav-link">Contact</a>
+        </div>
+      </nav>
+
+      <!-- Actions: Sound + Hamburger -->
+      <div class="header-actions">
+        <button id="soundToggle" class="sound-toggle-btn" aria-label="Toggle Sound" title="Sound Mute/Unmute">
+          <span id="soundIcon">🔊</span>
+        </button>
+        <button id="cyberNavToggle" class="cyber-hamburger" aria-label="Toggle Menu" aria-expanded="false" aria-controls="cyberMainNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="about-container">
+      <!-- 1. Hero -->
+      <section class="about-hero">
+        <h1>About <span class="glow-cyan">CYBERTYPER</span></h1>
+        <p>Where typing meets the cosmos</p>
+        <a href="../index.html" class="btn-neon" style="font-size:1.1rem; padding:0.8rem 1.8rem;">
+          <span>🚀</span> Play Now
+        </a>
+      </section>
+
+      <!-- 2. Welcome / Mission (UPDATED WITH SEO TEXT) -->
+      <section class="glass-section reveal-card">
+        <h2><span>🪐</span> Welcome to CYBERTYPER!</h2>
+        <p>
+          Are you looking for the best <strong>free online typing games</strong>? You are in the right place! At CYBERTYPER, we make keyboard practice fun and exciting.
+        </p>
+        <p>
+          If you want to <strong>improve typing speed</strong> or take an <strong>online typing test</strong>, our space-themed arcade has everything you need. Instead of boring lessons, you can easily check your speed with our <strong>WPM test</strong> and play <strong>fun games to improve typing speed</strong>.
+        </p>
+        <p>
+          You can type to stop falling words, destroy space asteroids, or even join a fast <strong>typing race against bot</strong>. Every game is designed to help you type faster and with better accuracy.
+        </p>
+        <p>
+          Play our <strong>arcade typing games</strong> today, track your progress, and level up your keyboard skills while having fun!
+        </p>
+      </section>
+
+      <!-- 3. What We Offer -->
+      <section class="glass-section reveal-card">
+        <h2><span>🎮</span> What We Offer</h2>
+        <p>Four distinct game modes engineered to sharpen every facet of your typing reflexes:</p>
+        <div class="arcade-showcase-grid">
+          <div class="showcase-card" style="--card-highlight: var(--cyan-glow);">
+            <div>
+              <div class="showcase-header">
+                <span class="showcase-icon">⚡</span>
+                <h3>Speed Typing Test</h3>
+              </div>
+              <p>Scientific benchmark testing featuring live WPM meters, character-level accuracy tracking, and 14+ sci-fi passages.</p>
+            </div>
+            <a href="../games/speed-test.html" class="btn-neon" style="align-self:flex-start; font-size:0.85rem; padding:0.4rem 0.9rem;">Play Benchmark →</a>
+          </div>
+
+          <div class="showcase-card" style="--card-highlight: var(--magenta-glow);">
+            <div>
+              <div class="showcase-header">
+                <span class="showcase-icon">🌧️</span>
+                <h3>Falling Words</h3>
+              </div>
+              <p>Orbital wave defense where words plummet from the sky. Lock onto targets, vaporize them, and protect your 3 shields.</p>
+            </div>
+            <a href="../games/falling-words.html" class="btn-neon btn-magenta" style="align-self:flex-start; font-size:0.85rem; padding:0.4rem 0.9rem;">Play Arcade →</a>
+          </div>
+
+          <div class="showcase-card" style="--card-highlight: var(--emerald-glow);">
+            <div>
+              <div class="showcase-header">
+                <span class="showcase-icon">🏎️</span>
+                <h3>Typing Race vs Bot</h3>
+              </div>
+              <p>Bumper-to-bumper drag racing against a calibrated 40 WPM bot. Execute rapid overtakes and rank on the Top 5 board.</p>
+            </div>
+            <a href="../games/typing-race.html" class="btn-neon" style="align-self:flex-start; font-size:0.85rem; padding:0.4rem 0.9rem;">Race Now →</a>
+          </div>
+
+          <div class="showcase-card" style="--card-highlight: var(--gold-glow);">
+            <div>
+              <div class="showcase-header">
+                <span class="showcase-icon">☄️</span>
+                <h3>Falling Asteroids</h3>
+              </div>
+              <p>Space interceptor defense where word length dictates asteroid size. Zero shields tolerance — one hit means instant destruction!</p>
+            </div>
+            <a href="../games/asteroid-game.html" class="btn-neon" style="align-self:flex-start; font-size:0.85rem; padding:0.4rem 0.9rem;">Defend Space →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Why CYBERTYPER -->
+      <section class="glass-section reveal-card">
+        <h2><span>⚡</span> Why CYBERTYPER?</h2>
+        <div class="why-cyber-grid">
+          <div class="why-item">
+            <span class="why-item-icon">💎</span>
+            <h4>100% Free Forever</h4>
+            <p>No paywalls, no locked levels, and no micro-transactions. Full arcade access for all.</p>
+          </div>
+          <div class="why-item">
+            <span class="why-item-icon">🔓</span>
+            <h4>Zero Sign-Ups</h4>
+            <p>No email registration or logins required. Open the site and start playing in 2 seconds.</p>
+          </div>
+          <div class="why-item">
+            <span class="why-item-icon">📱</span>
+            <h4>Fully Responsive</h4>
+            <p>Seamlessly adapts to desktop monitors, mechanical keyboards, laptops, and mobile screens.</p>
+          </div>
+          <div class="why-item">
+            <span class="why-item-icon">🔊</span>
+            <h4>Web Audio Synthesis</h4>
+            <p>Zero external sound lag. Audio is synthesized procedurally in real-time via the Web Audio API.</p>
+          </div>
+          <div class="why-item">
+            <span class="why-item-icon">🔒</span>
+            <h4>Private & Offline Ready</h4>
+            <p>All scores are stored strictly in your browser's localStorage. Zero tracking or telemetry.</p>
+          </div>
+          <div class="why-item">
+            <span class="why-item-icon">⚡</span>
+            <h4>Lightweight Performance</h4>
+            <p>No heavy third-party JavaScript frameworks or slow bloat. Loads at lightspeed.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Animated Stats Strip -->
+      <div class="stats-strip reveal-card" id="statsSection">
+        <div class="stat-metric-card">
+          <div class="stat-num-val" data-target="4">0</div>
+          <div class="stat-num-lbl">Arcade Games</div>
+        </div>
+        <div class="stat-metric-card">
+          <div class="stat-num-val" data-target="100" data-suffix="%">0%</div>
+          <div class="stat-num-lbl">Free to Play</div>
+        </div>
+        <div class="stat-metric-card">
+          <div class="stat-num-val" data-target="0">0</div>
+          <div class="stat-num-lbl">Sign-Ups Needed</div>
+        </div>
+        <div class="stat-metric-card">
+          <div class="stat-num-val" data-target="999" data-suffix="+">0+</div>
+          <div class="stat-num-lbl">Hours of Practice</div>
+        </div>
+      </div>
+
+      <!-- 6. Meet The Creator -->
+      <section class="glass-section reveal-card">
+        <h2><span>👨‍🚀</span> Meet the Creator</h2>
+        <div class="creator-card">
+          <div class="creator-avatar">
+            <div class="avatar-inner">⚡</div>
+          </div>
+          <div class="creator-info">
+            <h3>Arpit</h3>
+            <div class="creator-role">Lead Developer & Cosmic Architect</div>
+            <p>
+              Hi there! I am Arpit, a first-year student pursuing Artificial Intelligence & Machine Learning (AI/ML) and the sole developer and owner of CYBERTYPER.
+            </p>
+            <p>
+              I built this platform for high-speed typing, creative web engineering. My vision was to move away from boring typing lessons and build a place where people could play free online typing games that actually feel like an authentic arcade experience.
+            </p>
+            <p>
+              As a developer, my goal is to continuously improve my technical knowledge, experiment with new technologies, and create useful digital experiences that help people level up their skills. When I am not coding or studying AI, I am usually brainstorming the next big feature for this arcade!
+            </p>
+            <div class="social-links-row" style="margin-top:0.75rem;">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-badge"><span>💻</span> GitHub</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-badge"><span>📸</span> Instagram</a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-badge"><span>📺</span> YouTube</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Roadmap / Coming Soon -->
+      <section class="glass-section reveal-card">
+        <h2><span>🗺️</span> Cosmic Roadmap</h2>
+        <p>We are constantly engineering new features. Here is what is on the horizon:</p>
+        <ul class="roadmap-list">
+          <li class="roadmap-item">
+            <span>🚀 <strong>New Game Mode: Laser Defense Matrix</strong></span>
+            <span class="roadmap-status">In Design</span>
+          </li>
+          <li class="roadmap-item">
+            <span>🇮🇳 <strong>Hindi / Regional Typing Practice Modules</strong></span>
+            <span class="roadmap-status">Planned</span>
+          </li>
+          <li class="roadmap-item">
+            <span>📅 <strong>Daily Typing Challenge with Cosmic Medals</strong></span>
+            <span class="roadmap-status">Coming Soon</span>
+          </li>
+          <li class="roadmap-item">
+            <span>🏆 <strong>Global Opt-In Leaderboard Rankings</strong></span>
+            <span class="roadmap-status">Research</span>
+          </li>
+          <li class="roadmap-item">
+            <span>🎨 <strong>Unlockable Neon Themes (Cyberpunk, Matrix Green, Solar Flare)</strong></span>
+            <span class="roadmap-status">In Progress</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 8. Call To Action -->
+      <section class="cta-card reveal-card">
+        <h2>Ready to Test Your Lightspeed Reflexes?</h2>
+        <p>Jump directly into the action, browse the help manuals, or share your feedback with us.</p>
+        <div class="cta-buttons">
+          <a href="../index.html" class="btn-neon" style="font-size:1.1rem; padding:0.9rem 1.8rem;">
+            <span>⚡</span> Start Playing
+          </a>
+          <a href="help.html" class="btn-neon btn-magenta" style="font-size:1.1rem; padding:0.9rem 1.8rem;">
+            <span>📖</span> Visit Help Center
+          </a>
+          <a href="contact.html" class="btn-neon" style="font-size:1.1rem; padding:0.9rem 1.8rem;">
+            <span>✉️</span> Contact Us
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <ul class="footer-nav">
+        <li><a href="help.html">Help</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="terms.html">Terms and Conditions</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="footer-copy">© 2026 CYBERTYPER • Built with Modern Web Standards & Web Audio API</div>
+    </footer>
+  </div>
+
+  <script src="../js/nav.js"></script>
+  <script>
+    // IntersectionObserver for Smooth Scroll Reveal Animations
+    const revealCards = document.querySelectorAll('.reveal-card');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealCards.forEach(c => observer.observe(c));
+    } else {
+      revealCards.forEach(c => c.classList.add('revealed'));
+    }
+
+    // Count-Up Animation for Stats Strip
+    let statsCounted = false;
+    const statsSection = document.getElementById('statsSection');
+
+    function animateCounters() {
+      if (statsCounted) return;
+      statsCounted = true;
+
+      const counters = document.querySelectorAll('.stat-num-val');
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'), 10);
+        const suffix = counter.getAttribute('data-suffix') || '';
+        let start = 0;
+        const duration = 1500;
+        const startTime = performance.now();
+
+        function updateCount(time) {
+          const elapsed = time - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease-out curve
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(start + (target - start) * easeOut);
+          counter.textContent = `${current}${suffix}`;
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCount);
+          } else {
+            counter.textContent = `${target}${suffix}`;
+          }
+        }
+        requestAnimationFrame(updateCount);
+      });
+    }
+
+    if ('IntersectionObserver' in window && statsSection) {
+      const statsObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          animateCounters();
+          statsObserver.disconnect();
+        }
+      }, { threshold: 0.25 });
+      statsObserver.observe(statsSection);
+    } else {
+      animateCounters();
+    }
+
+    // Shared Sound Controller & Starfield
+    window.audioCtx = null;
+    window.isMuted = localStorage.getItem('typing_site_sound_muted') === 'true';
+
+    const soundToggle = document.getElementById('soundToggle');
+    const soundIcon = document.getElementById('soundIcon');
+
+    function updateSoundUI() {
+      if (window.isMuted) {
+        soundIcon.textContent = '🔇';
+        soundToggle.classList.add('muted');
+      } else {
+        soundIcon.textContent = '🔊';
+        soundToggle.classList.remove('muted');
+      }
+    }
+    updateSoundUI();
+
+    soundToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.isMuted = !window.isMuted;
+      localStorage.setItem('typing_site_sound_muted', window.isMuted);
+      updateSoundUI();
+    });
+
+    // Starfield Canvas
+    const canvas = document.getElementById('starsCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const STAR_COUNT = 85;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5 + 0.5,
+          speed: Math.random() * 0.35 + 0.1,
+          color: Math.random() > 0.4 ? '#00f0ff' : '#ff007f',
+          alpha: Math.random() * 0.7 + 0.3,
+          flicker: Math.random() * 0.02 + 0.01
+        });
+      }
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let s of stars) {
+        s.y += s.speed;
+        if (s.y > canvas.height) {
+          s.y = 0;
+          s.x = Math.random() * canvas.width;
+        }
+        s.alpha += Math.sin(Date.now() * 0.003 + s.x) * s.flicker;
+        const clampedAlpha = Math.max(0.15, Math.min(0.9, s.alpha));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = clampedAlpha;
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+      }
+      requestAnimationFrame(animateStars);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    animateStars();
+  </script>
+</body>
+</html>
