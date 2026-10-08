@@ -8,26 +8,26 @@
   <meta name="description" content="Play high-octane neon cyber typing arcade games. Push your typing speed (WPM), accuracy, and reflexes to lightspeed with our touch typing training benchmark.">
   <meta name="keywords" content="typing game, speed test, space typing, cybertyper, keyboard arcade, wpm benchmark, touch typing tips">
 
-  <!-- Favicon (Inline SVG Lightning Icon to prevent 404 errors) -->
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
-  <!-- Open Graph & Social Sharing (Replace https://cybertyper.com with your actual production domain) -->
+  <!-- Open Graph & Social Sharing -->
   <meta property="og:title" content="CYBERTYPER // Space Typing Arcade">
   <meta property="og:description" content="Level up your typing speed with exciting neon sci-fi typing games.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://cybertyper.com/images/og-preview.png">
+  <meta property="og:image" content="https://arpitkx.github.io/image/og-preview.png">
 
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="u2HCf_6VKyPAVWw0sn1yf_jrNx-6g6iIWCGSwuhIPbA" />
 
-  <!-- Consolidated Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Consolidated Stylesheet with Relative Path -->
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-  <!-- Canvas Starfield -->
-  <canvas id="starsCanvas" class="stars-bg"></canvas>
+  <!-- Canvas Starfield with Inline Layer Lock (Never gets covered) -->
+  <canvas id="starsCanvas" class="stars-bg" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1; display: block;"></canvas>
 
-  <div class="container">
+  <div class="container" style="position: relative; z-index: 2;">
     <!-- Header -->
     <header class="site-header">
       <a href="index.html" class="brand-wrapper">
@@ -238,9 +238,66 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8769034899349607" crossorigin="anonymous"></script>
 
-  <!-- Modular Deferred Scripts -->
-  <script src="js/app.js" defer></script>
-  <script src="js/stars.js" defer></script>
-  <script src="js/nav.js" defer></script>
+  <!-- External App & Navigation Scripts with Explicit Relative Paths -->
+  <script src="./js/app.js" defer></script>
+  <script src="./js/nav.js" defer></script>
+
+  <!-- Direct Embedded Starfield Engine (Guaranteed Execution, Zero 404 Failure) -->
+  <script>
+    (function initStarsBackground() {
+      function start() {
+        const canvas = document.getElementById('starsCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        const STAR_COUNT = 150;
+
+        function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          stars = [];
+          for (let i = 0; i < STAR_COUNT; i++) {
+            stars.push({
+              x: Math.random() * canvas.width,
+              y: Math.random() * canvas.height,
+              radius: Math.random() * 2 + 1,
+              speed: Math.random() * 0.45 + 0.15,
+              color: Math.random() > 0.4 ? '#00f0ff' : '#ff007f',
+              alpha: Math.random() * 0.7 + 0.3
+            });
+          }
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function render() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (let i = 0; i < stars.length; i++) {
+            const s = stars[i];
+            s.y += s.speed;
+            if (s.y > canvas.height) {
+              s.y = 0;
+              s.x = Math.random() * canvas.width;
+            }
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+            ctx.fillStyle = s.color;
+            ctx.globalAlpha = s.alpha;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = s.color;
+            ctx.fill();
+          }
+          requestAnimationFrame(render);
+        }
+        render();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start);
+      } else {
+        start();
+      }
+    })();
+  </script>
 </body>
 </html>
