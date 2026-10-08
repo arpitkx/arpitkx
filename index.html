@@ -20,12 +20,12 @@
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="u2HCf_6VKyPAVWw0sn1yf_jrNx-6g6iIWCGSwuhIPbA" />
 
-  <!-- Consolidated Stylesheet with Relative Path -->
+  <!-- Consolidated Stylesheet -->
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-  <!-- Canvas Starfield with Inline Layer Lock (Never gets covered) -->
-  <canvas id="starsCanvas" class="stars-bg" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1; display: block;"></canvas>
+  <!-- Canvas Starfield with Hardware Overlay Lock -->
+  <canvas id="starsCanvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1; display: block;"></canvas>
 
   <div class="container" style="position: relative; z-index: 2;">
     <!-- Header -->
@@ -238,65 +238,55 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8769034899349607" crossorigin="anonymous"></script>
 
-  <!-- External App & Navigation Scripts with Explicit Relative Paths -->
+  <!-- External App & Navigation Scripts -->
   <script src="./js/app.js" defer></script>
   <script src="./js/nav.js" defer></script>
 
-  <!-- Direct Embedded Starfield Engine (Guaranteed Execution, Zero 404 Failure) -->
+  <!-- Self-Contained High-Visibility Stars Engine -->
   <script>
-    (function initStarsBackground() {
-      function start() {
-        const canvas = document.getElementById('starsCanvas');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-        const STAR_COUNT = 150;
+    (function() {
+      const canvas = document.getElementById('starsCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const STAR_COUNT = 160;
 
-        function resize() {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          stars = [];
-          for (let i = 0; i < STAR_COUNT; i++) {
-            stars.push({
-              x: Math.random() * canvas.width,
-              y: Math.random() * canvas.height,
-              radius: Math.random() * 2 + 1,
-              speed: Math.random() * 0.45 + 0.15,
-              color: Math.random() > 0.4 ? '#00f0ff' : '#ff007f',
-              alpha: Math.random() * 0.7 + 0.3
-            });
-          }
-        }
-        resize();
-        window.addEventListener('resize', resize);
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
 
-        function render() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          for (let i = 0; i < stars.length; i++) {
-            const s = stars[i];
-            s.y += s.speed;
-            if (s.y > canvas.height) {
-              s.y = 0;
-              s.x = Math.random() * canvas.width;
-            }
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-            ctx.fillStyle = s.color;
-            ctx.globalAlpha = s.alpha;
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = s.color;
-            ctx.fill();
-          }
-          requestAnimationFrame(render);
-        }
-        render();
+      for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          r: Math.random() * 2 + 1,
+          speed: Math.random() * 0.6 + 0.2,
+          color: Math.random() > 0.4 ? '#00f0ff' : '#ff007f'
+        });
       }
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', start);
-      } else {
-        start();
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < stars.length; i++) {
+          let s = stars[i];
+          s.y += s.speed;
+          if (s.y > canvas.height) {
+            s.y = 0;
+            s.x = Math.random() * canvas.width;
+          }
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = s.color;
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = s.color;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
       }
+      requestAnimationFrame(draw);
     })();
   </script>
 </body>
