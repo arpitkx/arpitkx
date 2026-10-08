@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic SEO -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBERTYPER // Space Typing Arcade & Speed Test Matrix</title>
+  <meta name="description" content="Play high-octane neon cyber typing arcade games. Push your typing speed (WPM), accuracy, and reflexes to lightspeed with our touch typing training benchmark.">
+  <meta name="keywords" content="typing game, speed test, space typing, cybertyper, keyboard arcade, wpm benchmark, touch typing tips">
+
+  <!-- Favicon (Inline SVG Lightning Icon to prevent 404 errors) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
+  <!-- Open Graph & Social Sharing (Replace https://cybertyper.com with your actual production domain) -->
+  <meta property="og:title" content="CYBERTYPER // Space Typing Arcade">
+  <meta property="og:description" content="Level up your typing speed with exciting neon sci-fi typing games.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://cybertyper.com/images/og-preview.png">
+
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="u2HCf_6VKyPAVWw0sn1yf_jrNx-6g6iIWCGSwuhIPbA" />
+
+  <!-- Consolidated Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Canvas Starfield -->
+  <canvas id="starsCanvas" class="stars-bg"></canvas>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="site-header">
+      <a href="index.html" class="brand-wrapper">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <div class="brand-title">CYBERTYPER</div>
+          <div class="brand-subtitle">Space Typing Arcade</div>
+        </div>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav id="cyberMainNav" class="cyber-nav" aria-label="Main Navigation">
+        <div class="cyber-nav-item">
+          <a href="index.html" class="cyber-nav-link active" aria-current="page">Home</a>
+        </div>
+        <div class="cyber-nav-item cyber-dropdown" id="cyberGamesDropdown">
+          <button class="cyber-nav-link" id="cyberGamesTrigger" aria-expanded="false" aria-haspopup="true">
+            Games <span class="dropdown-arrow">▼</span>
+          </button>
+          <ul class="cyber-dropdown-menu" aria-label="Games Submenu">
+            <li class="cyber-dropdown-item"><a href="games/speed-test.html" class="cyber-dropdown-link">⚡ Speed Typing Test</a></li>
+            <li class="cyber-dropdown-item"><a href="games/falling-words.html" class="cyber-dropdown-link">🌧️ Falling Words</a></li>
+            <li class="cyber-dropdown-item"><a href="games/typing-race.html" class="cyber-dropdown-link">🏎️ Typing Race vs Bot</a></li>
+            <li class="cyber-dropdown-item"><a href="games/asteroid-game.html" class="cyber-dropdown-link">☄️ Falling Asteroids</a></li>
+          </ul>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="pages/content.html" class="cyber-nav-link">News</a>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="pages/about.html" class="cyber-nav-link">About</a>
+        </div>
+        <div class="cyber-nav-item">
+          <a href="pages/contact.html" class="cyber-nav-link">Contact</a>
+        </div>
+      </nav>
+
+      <!-- Actions: Theme Toggle + Sound + Hamburger -->
+      <div class="header-actions">
+        <button id="themeToggleBtn" class="sound-toggle-btn" aria-label="Toggle Theme" title="Toggle Light/Dark Mode">
+          <span id="themeIcon">☀️</span>
+        </button>
+        <button id="soundToggle" class="sound-toggle-btn" aria-label="Toggle Sound" title="Sound Mute/Unmute">
+          <span id="soundIcon">🔊</span>
+        </button>
+        <button id="cyberNavToggle" class="cyber-hamburger" aria-label="Toggle Menu" aria-expanded="false" aria-controls="cyberMainNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-badge">✦ Level Up Your WPM ✦</div>
+      <h1 class="hero-title">
+        Master The <span class="glow-cyan">Exciting Typing Game</span> <span class="glow-pink">Matrix</span>
+      </h1>
+      <p class="hero-desc">
+        Play exciting online typing games. Push your speed, accuracy, and reflexes to lightspeed with our neon challenges.
+      </p>
+    </section>
+
+    <!-- 4 Game Cards Grid -->
+    <main class="games-grid">
+      <!-- Card 1: Speed Typing Test -->
+      <a href="games/speed-test.html" class="game-card theme-cyan">
+        <div class="card-top">
+          <div class="card-icon-wrap">⚡</div>
+          <span class="card-tag">Benchmark</span>
+        </div>
+        <div>
+          <h2 class="card-title">Speed Typing Test</h2>
+          <p class="card-desc">
+            Test your pure typing speed & accuracy with live character highlighting, dynamic WPM metrics, and detailed completion analytics.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-action-text">Launch Test <span>→</span></span>
+          <span class="card-meta">10+ Paragraphs</span>
+        </div>
+      </a>
+
+      <!-- Card 2: Falling Words -->
+      <a href="games/falling-words.html" class="game-card theme-magenta">
+        <div class="card-top">
+          <div class="card-icon-wrap">🌧️</div>
+          <span class="card-tag">Arcade Rush</span>
+        </div>
+        <div>
+          <h2 class="card-title">Falling Words</h2>
+          <p class="card-desc">
+            Words descend from the digital sky! Type them before they crash at the bottom. Defend 3 lives as waves intensify.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-action-text">Play Arcade <span>→</span></span>
+          <span class="card-meta">3 Lives • High Score</span>
+        </div>
+      </a>
+
+      <!-- Card 3: Typing Race vs Bot -->
+      <a href="games/typing-race.html" class="game-card theme-emerald">
+        <div class="card-top">
+          <div class="card-icon-wrap">🏎️</div>
+          <span class="card-tag">Versus Mode</span>
+        </div>
+        <div>
+          <h2 class="card-title">Typing Race vs Bot</h2>
+          <p class="card-desc">
+            Race bumper-to-bumper against a 40 WPM AI competitor. Execute rapid overtakes, cross the finish line, and top the leaderboard.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-action-text">Enter Race <span>→</span></span>
+          <span class="card-meta">AI Rival • Top 5 Board</span>
+        </div>
+      </a>
+
+      <!-- Card 4: Falling Asteroids -->
+      <a href="games/asteroid-game.html" class="game-card theme-gold">
+        <div class="card-top">
+          <div class="card-icon-wrap">☄️</div>
+          <span class="card-tag">Space Defense</span>
+        </div>
+        <div>
+          <h2 class="card-title">Falling Asteroids</h2>
+          <p class="card-desc">
+            Command your orbital defense ship. Obliterate incoming meteors with laser strikes, explosive particle shockwaves, and deep audio blasts.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-action-text">Defend Galaxy <span>→</span></span>
+          <span class="card-meta">Particles • Sci-Fi FX</span>
+        </div>
+      </a>
+    </main>
+
+    <!-- Features Strip -->
+    <div class="features-strip">
+      <div class="feature-box">
+        <div class="feature-icon">🔊</div>
+        <div>
+          <div class="feature-heading">Web Audio Synth</div>
+          <div class="feature-sub">Zero external sound files — pure zero-latency Web Audio API synthesis.</div>
+        </div>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">📱</div>
+        <div>
+          <div class="feature-heading">Mobile Responsive</div>
+          <div class="feature-sub">Optimized for keyboard power-users and touch screen inputs alike.</div>
+        </div>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">💾</div>
+        <div>
+          <div class="feature-heading">Local Persistence</div>
+          <div class="feature-sub">Sound preferences and race leaderboards saved in your browser.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Editorial & Educational Section -->
+    <article class="content-article-section">
+      <h2>How CYBERTYPER Improves Your Typing Speed & Cognitive Reflexes</h2>
+      <p>
+        Typing is no longer just an administrative skill; it is the fundamental bridge between human thought and digital execution. Whether you are coding, authoring documents, or communicating across networks, having a typing benchmark above 70 Words Per Minute (WPM) saves hundreds of hours every year. CYBERTYPER combines gamification mechanics with precision analytics to make touch typing practice addictive, responsive, and measurable.
+      </p>
+
+      <div class="content-grid-2">
+        <div class="guide-card">
+          <h4>Standardized Net WPM Formulation</h4>
+          <p>
+            Many free typing apps only track gross character speed. CYBERTYPER calculates standard Net WPM by penalizing uncorrected errors over elapsed minutes. This ensures you train for real-world productivity rather than erratic bursts of inaccuracy.
+          </p>
+        </div>
+        <div class="guide-card">
+          <h4>Arcade Reaction Training</h4>
+          <p>
+            Games like Falling Words and Orbital Asteroids force your brain to eliminate visual search latency. By reacting to descending words before defensive barriers collapse, muscle memory transitions directly from sight to fingers without conscious mental pauses.
+          </p>
+        </div>
+      </div>
+
+      <h3>Essential Guidelines For Faster Touch Typing</h3>
+      <p>
+        To break past the 60 WPM plateau, prioritize ergonomic posture and consistent key discipline. Ensure your index fingers always return to the tactile bumps on the home row keys (F and J). Avoid glancing at the physical keyboard; relying on tactile feedback forces the motor cortex to build durable muscle memory. Practicing just 15 minutes every day across varied benchmark texts produces consistent improvements within weeks.
+      </p>
+    </article>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <ul class="footer-nav">
+        <li><a href="pages/content.html">News</a></li>
+        <li><a href="pages/help.html">Help</a></li>
+        <li><a href="pages/faq.html">FAQ</a></li>
+        <li><a href="pages/about.html">About</a></li>
+        <li><a href="pages/privacy.html">Privacy Policy</a></li>
+        <li><a href="pages/terms.html">Terms and Conditions</a></li>
+        <li><a href="pages/contact.html">Contact</a></li>
+      </ul>
+      <div class="footer-copy">© 2026 CYBERTYPER • Built with Modern Web Standards & Web Audio API</div>
+    </footer>
+  </div>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8769034899349607" crossorigin="anonymous"></script>
+
+  <!-- Modular Deferred Scripts -->
+  <script src="js/app.js" defer></script>
+  <script src="js/stars.js" defer></script>
+  <script src="js/nav.js" defer></script>
+</body>
+</html>

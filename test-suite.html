@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Automated Typing Games Test Suite</title>
+</head>
+<body>
+  <h1>Running Typing Games Automated Verification</h1>
+  <div id="results">Running tests...</div>
+  <iframe id="testFrame" style="width: 800px; height: 600px;"></iframe>
+
+  <script>
+    const resultsDiv = document.getElementById('results');
+    const iframe = document.getElementById('testFrame');
+    const log = [];
+
+    function record(testName, passed, detail = '') {
+      log.push({ testName, passed, detail });
+      console.log(`[${passed ? 'PASS' : 'FAIL'}] ${testName}: ${detail}`);
+    }
+
+    async function wait(ms) {
+      return new Promise(r => setTimeout(r, ms));
+    }
+
+    async function loadFrame(url) {
+      return new Promise((resolve, reject) => {
+        iframe.onload = () => resolve(iframe.contentWindow);
+        iframe.onerror = reject;
+        iframe.src = url;
+      });
+    }
+
+    async function runAllTests() {
+      try {
+        // TEST 1: index.html
+        {
+          const win = await loadFrame('index.html');
+          await wait(300);
+          const doc = win.document;
+          const cards = doc.querySelectorAll('.game-card');
+          record('index.html Game Cards Count', cards.length === 4, `Found ${cards.length} cards`);
+
+          const soundBtn = doc.getElementById('soundToggle');
+          record('index.html Sound Button', !!soundBtn, 'Sound toggle exists');
+
+          // Test sound toggle
+          soundBtn.click();
+          const mutedState = win.localStorage.getItem('typing_site_sound_muted');
+          record('index.html Mute Toggle Persistence', mutedState === 'true' || mutedState === 'false', `State is ${mutedState}`);
+
+          // Test tone player
+          try {
+            win.playTone(600, 0.05);
+            record('index.html playTone Call', true, 'Executed without exception');
+          } catch(e) {
+            record('index.html playTone Call', false, e.message);
+          }
+        }
+
+        // TEST 2: games/speed-test.html
+        {
+          const win = await loadFrame('games/speed-test.html');
+          await wait(300);
+          const doc = win.document;
+
+          record('speed-test.html Passages Loaded', win.PASSAGES && win.PASSAGES.length >= 10, `Passages count: ${win.PASSAGES ? win.PASSAGES.length : 0}`);
+
+          // Verify sound functions
+          let soundErrors = 0;
+          try { win.playCorrectSound(); } catch (e) { soundErrors++; }
+          try { win.playWrongSound(); } catch (e) { soundErrors++; }
+          try { win.playCompleteChime(); } catch (e) { soundErrors++; }
+          record('speed-test.html Sound Effects', soundErrors === 0, `Sound functions executed (errors: ${soundErrors})`);
+
+          // Test typing character
+          const initialTarget = win.targetText;
+          record('speed-test.html Initial Target Text', initialTarget && initialTarget.length > 0, `Length: ${initialTarget.length}`);
+
+          const firstChar = initialTarget[0];
+          win.handleCharacterInput(firstChar);
+          record('speed-test.html Correct Character Input', win.currentIndex === 1, `currentIndex is ${win.currentIndex}`);
+
+          // Test wrong character
+          win.handleCharacterInput('§');
+          record('speed-test.html Wrong Character Handling', win.errorCount === 1, `errorCount is ${win.errorCount}`);
+
+          // Test finish test
+          win.finishTest();
+          record('speed-test.html Test Completion & Modal', doc.getElementById('resultsModal').classList.contains('show'), 'Results modal shown');
+        }
+
+        // TEST 3: games/falling-words.html
+        {
+          const win = await loadFrame('games/falling-words.html');
+          await wait(300);
+          const doc = win.document;
+
+          let soundErrors = 0;
+          try { win.playLetterBlip(); } catch (e) { soundErrors++; }
+          try { win.playWordDestroyed(); } catch (e) { soundErrors++; }
+          try { win.playWrongKey(); } catch (e) { soundErrors++; }
+          try { win.playLifeLost(); } catch (e) { soundErrors++; }
+          try { win.playLevelUp(); } catch (e) { soundErrors++; }
+          try { win.playGameOver(); } catch (e) { soundErrors++; }
+          record('falling-words.html Sound Functions', soundErrors === 0, `Sound functions executed (errors: ${soundErrors})`);
+
+          // Start game
+          win.startGame();
+          record('falling-words.html Start Game State', win.isPlaying === true && win.lives === 3, `isPlaying: ${win.isPlaying}, lives: ${win.lives}`);
+
+          // Spawn word and type it
+          win.words = [];
+          win.words.push(new win.Word('neon', 1));
+          record('falling-words.html Word Spawned', win.words.length === 1 && win.words[0].text === 'neon', 'Word neon added');
+
+          win.handleInputKey('n');
+          record('falling-words.html Target First Letter', win.targetedWord && win.targetedWord.typed === 1, `Typed: ${win.targetedWord ? win.targetedWord.typed : 'none'}`);
+
+          win.handleInputKey('e');
+          win.handleInputKey('o');
+          win.handleInputKey('n');
+          record('falling-words.html Word Destruction', win.wordsDestroyed === 1 && win.score > 0, `Destroyed: ${win.wordsDestroyed}, Score: ${win.score}`);
+        }
+
+        // TEST 4: games/typing-race.html
+        {
+          const win = await loadFrame('games/typing-race.html');
+          await wait(300);
+          const doc = win.document;
+
+          let soundErrors = 0;
+          try { win.playCorrectTick(); } catch (e) { soundErrors++; }
+          try { win.playWrongSoft(); } catch (e) { soundErrors++; }
+          try { win.playCountdownBeep(false); } catch (e) { soundErrors++; }
+          try { win.playCountdownBeep(true); } catch (e) { soundErrors++; }
+          try { win.playOvertakeSweep(); } catch (e) { soundErrors++; }
+          try { win.playVictoryFanfare(); } catch (e) { soundErrors++; }
+          try { win.playDefeatSweep(); } catch (e) { soundErrors++; }
+          record('typing-race.html Sound Functions', soundErrors === 0, `Race sound functions executed (errors: ${soundErrors})`);
+
+          // Test Leaderboard
+          const lb = win.getLeaderboard();
+          record('typing-race.html Leaderboard Init', Array.isArray(lb) && lb.length > 0, `Entries: ${lb.length}`);
+
+          win.saveScore('TestRacer', 75, 99);
+          const updatedLb = win.getLeaderboard();
+          record('typing-race.html Save Score Leaderboard', updatedLb[0].name === 'TestRacer' && updatedLb[0].wpm === 75, 'New high score inserted top');
+
+          // Test launch race and typing
+          win.launchRace();
+          record('typing-race.html Race Active', win.raceActive === true, 'Race launched');
+
+          const expectedChar = win.targetText[0];
+          win.handleKey(expectedChar);
+          record('typing-race.html Keystroke Progress', win.currentIndex === 1, `Player index: ${win.currentIndex}`);
+        }
+
+        // TEST 5: games/asteroid-game.html
+        {
+          const win = await loadFrame('games/asteroid-game.html');
+          await wait(300);
+          const doc = win.document;
+
+          let soundErrors = 0;
+          try { win.playLaserTick(); } catch (e) { soundErrors++; }
+          try { win.playDullThud(); } catch (e) { soundErrors++; }
+          try { win.playAsteroidDestroyed(); } catch (e) { soundErrors++; }
+          try { win.playShipHit(); } catch (e) { soundErrors++; }
+          try { win.playLevelUpSciFi(); } catch (e) { soundErrors++; }
+          try { win.playGameOverSawtooth(); } catch (e) { soundErrors++; }
+          record('asteroid-game.html Sound Functions', soundErrors === 0, `Asteroid sound functions executed (errors: ${soundErrors})`);
+
+          // Test Ambient Hum Toggle
+          win.toggleAmbientHum();
+          record('asteroid-game.html Ambient Hum On', win.isAmbientOn === true, 'Ambient hum toggled on');
+          win.toggleAmbientHum();
+          record('asteroid-game.html Ambient Hum Off', win.isAmbientOn === false, 'Ambient hum toggled off');
+
+          // Test Start Game & Asteroid Destruction
+          win.startGame();
+          record('asteroid-game.html Start Game', win.isPlaying === true && win.lives === 3, 'Defense active');
+
+          win.asteroids = [];
+          win.asteroids.push(new win.Asteroid('rock', 1));
+          win.handleKey('r');
+          record('asteroid-game.html Asteroid Target First Key', win.targetedAsteroid && win.targetedAsteroid.typed === 1, 'Asteroid targeted');
+
+          win.handleKey('o');
+          win.handleKey('c');
+          win.handleKey('k');
+          record('asteroid-game.html Asteroid Destruction & Particles', win.asteroidsDestroyed === 1 && win.score > 0, `Destroyed: ${win.asteroidsDestroyed}, Score: ${win.score}`);
+
+          // Test screen shake and ship hit
+          win.triggerScreenShake();
+          record('asteroid-game.html Screen Shake Trigger', doc.getElementById('canvasWrap').classList.contains('shake'), 'Shake class applied');
+        }
+
+        // Output summary to DOM
+        const passCount = log.filter(l => l.passed).length;
+        const failCount = log.filter(l => !l.passed).length;
+        let html = `<h2>SUMMARY: ${passCount} PASSED, ${failCount} FAILED</h2><ul>`;
+        for (const item of log) {
+          html += `<li style="color: ${item.passed ? 'green' : 'red'};">
+            <strong>[${item.passed ? 'PASS' : 'FAIL'}]</strong> ${item.testName}: ${item.detail}
+          </li>`;
+        }
+        html += '</ul>';
+        resultsDiv.innerHTML = html;
+        window.TEST_COMPLETED = true;
+      } catch (err) {
+        resultsDiv.innerHTML = `<h2 style="color:red;">TEST SUITE ERROR: ${err.message}</h2>`;
+        console.error(err);
+        window.TEST_COMPLETED = true;
+      }
+    }
+
+    window.onload = () => {
+      runAllTests();
+    };
+  </script>
+</body>
+</html>
