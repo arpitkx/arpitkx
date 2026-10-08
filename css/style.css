@@ -2,6 +2,9 @@
    NEON SPACE TYPING HUB - GLOBAL STYLES (LIGHT & DARK THEME ENABLED)
    ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   DESIGN TOKENS & SYSTEM VARIABLES
+   -------------------------------------------------------------------------- */
 :root {
   /* Surface & Base Colors (Dark Mode Default) */
   --bg-deep: #060814;
@@ -77,6 +80,9 @@
   --shadow-box: 0 8px 30px rgba(20, 35, 60, 0.08);
 }
 
+/* --------------------------------------------------------------------------
+   RESET & FOUNDATIONS
+   -------------------------------------------------------------------------- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -107,31 +113,30 @@ body {
     radial-gradient(circle at 50% 50%, #e7edf8 0%, var(--bg-deep) 100%);
 }
 
-/* Starfield canvas visible over background */
 .stars-bg {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  z-index: 1;
-  opacity: 1;
+  z-index: 0;
+  opacity: 0.6;
 }
 
 [data-theme="light"] .stars-bg {
-  opacity: 0.5;
+  opacity: 0.25;
 }
 
-/* Main Container on top of Canvas */
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 1.5rem 1.25rem 3rem;
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
+/* Arena & Game Canvas Wrapper */
 body:has(.canvas-wrap) .container,
 .game-container {
   max-width: 780px;
@@ -145,6 +150,9 @@ body:has(.canvas-wrap) .container,
   margin: 0 auto;
 }
 
+/* --------------------------------------------------------------------------
+   SITE HEADER & NAVIGATION
+   -------------------------------------------------------------------------- */
 .site-header {
   position: sticky;
   top: 0;
@@ -225,6 +233,7 @@ body:has(.canvas-wrap) .container,
   border-radius: 2px;
 }
 
+/* Dropdown */
 .cyber-dropdown {
   position: relative;
 }
@@ -293,6 +302,7 @@ body:has(.canvas-wrap) .container,
   transform: rotate(180deg);
 }
 
+/* Hamburger & Actions */
 .cyber-hamburger {
   display: none;
   flex-direction: column;
@@ -366,6 +376,9 @@ body:has(.canvas-wrap) .container,
   color: var(--danger-glow);
 }
 
+/* --------------------------------------------------------------------------
+   HERO SECTION
+   -------------------------------------------------------------------------- */
 .hero {
   text-align: center;
   margin-bottom: 3.5rem;
@@ -412,6 +425,9 @@ body:has(.canvas-wrap) .container,
   line-height: 1.6;
 }
 
+/* --------------------------------------------------------------------------
+   GAMES GRID & CARDS
+   -------------------------------------------------------------------------- */
 .games-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -546,6 +562,9 @@ body:has(.canvas-wrap) .container,
 .game-card.theme-emerald { --card-accent: var(--emerald-glow); --card-glow: rgba(0, 153, 85, 0.25); }
 .game-card.theme-gold    { --card-accent: var(--gold-glow);    --card-glow: rgba(196, 128, 0, 0.25); }
 
+/* --------------------------------------------------------------------------
+   FEATURES STRIP & EDITORIAL ARTICLE
+   -------------------------------------------------------------------------- */
 .features-strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -582,6 +601,7 @@ body:has(.canvas-wrap) .container,
   color: var(--text-muted);
 }
 
+/* Editorial Guide (Consolidated from Inline HTML Styles) */
 .content-article-section {
   margin-top: 3.5rem;
   padding: 2.5rem;
@@ -642,6 +662,9 @@ body:has(.canvas-wrap) .container,
   margin-bottom: 0;
 }
 
+/* --------------------------------------------------------------------------
+   SPEED TYPING TEST ARENA & TYPOGRAPHY
+   -------------------------------------------------------------------------- */
 .typing-arena {
   background: var(--bg-card);
   border: 1px solid var(--border-neon);
@@ -663,7 +686,7 @@ body:has(.canvas-wrap) .container,
 
 .text-display-wrapper {
   position: relative;
-  height: 126px;
+  height: 126px; /* Exactly 3 lines (42px * 3) */
   overflow: hidden;
   scroll-behavior: smooth;
 }
@@ -707,6 +730,7 @@ body:has(.canvas-wrap) .container,
   text-decoration: underline wavy var(--danger-glow);
 }
 
+/* Hardware-Accelerated Caret Cursor */
 .char.current::before,
 .char.current-end::after {
   content: '';
@@ -734,6 +758,7 @@ body:has(.canvas-wrap) .container,
   }
 }
 
+/* Game Text Fields */
 .asteroid-word,
 .game-word,
 .typing-target,
@@ -749,6 +774,9 @@ input[type="text"].game-input,
   text-transform: none;
 }
 
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
 .site-footer {
   margin-top: auto;
   text-align: center;
@@ -790,6 +818,9 @@ input[type="text"].game-input,
   color: var(--text-dim);
 }
 
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN & ACCESSIBILITY
+   -------------------------------------------------------------------------- */
 body.nav-locked {
   overflow: hidden;
 }
@@ -896,13 +927,17 @@ body.nav-locked {
   }
 }
 
-/* Reduced Motion Safety (Stars ko hide nahi karega) */
+/* Reduced Motion Safety */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .stars-bg {
+    display: none;
   }
 
   .game-card:hover {
